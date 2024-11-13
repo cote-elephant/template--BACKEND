@@ -46,7 +46,7 @@ export async function createUser(req, res, next) {
   }
 }
 
-//*_____________ UPDATE EVERYTHING_____________
+//*_____________ UPDATE MANY THING________________
 export async function updateUserById(req, res, next) {
   try {
     const userId = parseInt(req.params.id);
@@ -78,11 +78,11 @@ export async function partlyUpdateUserById(req, res, next) {
     if (index !== -1) {
       // search key in updatedUser
       for (const key in updatedUser) {
-        // looping through keys but which one was changed?
-        // hasOwn
+        // looping through keys but which one has changed?
+        // hasOwnProperty
         // -> boolean
-        // -> checks if the key has content
-        if (updatedUser.hasOwn(key)) {
+        // -> checks if the keys content is available
+        if (updatedUser.hasOwnProperty(key)) {
           switch (key) {
             case "firstName":
               updateMessage += `First name of User ID ${userId} has been updated. `;
@@ -112,39 +112,40 @@ export async function partlyUpdateUserById(req, res, next) {
       });
       //besser Output wie "User 'ID' has been changed: 'ChangeThing'"
     } else {
-      // wenn index === -1 bedeutet das, dass keine Todo mit der gewünschten ID gefunden wurde
-      res.status(404).json({ message: "Todo not found." });
+      res.status(404).json({ message: "User not found." });
     }
   } catch (error) {
     next(error);
   }
 }
 
-//!__________DELETE ALL _____________
-export function deleteAllUser(req, res, next) {
-  try {
-    usersData = [];
-    writeUsersData(usersData);
-    res.json({ message: "!!!!ALL USERS ARE DELETED. THE FILE IS EMPTY!!!!" });
-  } catch (error) {
-    next(error);
-  }
-}
-//*_____________DELETE :id_______________
+
+//*_____________DELETE A USER PARTLY_______________
 export async function deleteUserById(req, res, next) {
   try {
     const userId = parseInt(req.params.id);
     const index = usersData.findIndex((item) => item.id === userId);
 
     if (index !== -1) {
-      const deletedUser = data.splice(index, 1);
+      const deletedUser = usersData.splice(index, 1);
       writeUsersData(usersData);
       res
-        .status(201)
-        .json({ message: `User '${deletedUser.id}' deleted on ${new Date()}` });
+        .status(200)
+        .json({ message: `User '${deletedUser[0].id}' deleted on ${new Date()}` });
     } else {
       res.status(404).json({ message: `User '${deletedUser.id}' not found!` });
     }
+  } catch (error) {
+    next(error);
+  }
+}
+
+//!__________DELETE A USER COMPLETELY _____________
+export function deleteAllUser(req, res, next) {
+  try {
+    usersData = [];
+    writeUsersData(usersData);
+    res.json({ message: "!!!!ALL USERS ARE DELETED. THE FILE IS EMPTY!!!!" });
   } catch (error) {
     next(error);
   }
