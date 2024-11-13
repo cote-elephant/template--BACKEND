@@ -17,5 +17,3 @@
 
 3. Struktur: Nutze Router und Controller um den Code zu strukturieren
    :warning: Dieses Backend-Projekt werden wir künftig benötigen und noch weiter ausbauen (Datenbank und co.). Außerdem könnt ihr dieses Backend dann so in jedem zukünftigen Projekt (inkl. Final Project und co.) implementieren.
-
-blabl
