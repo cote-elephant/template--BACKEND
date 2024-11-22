@@ -48,7 +48,6 @@ mongoose
             zip: "90001",
           },
         },
-        deleted: false,
       },
     ];
     // const minimalUsers = [
@@ -56,6 +55,22 @@ mongoose
     //     username: "testuser1",
     //     password: "securePassword",
     //     email: "test1@example.com",
+    //     profile: {
+    //       firstName: "Test",
+    //       lastName: "User",
+    //       address: {
+    //         street1: "123 Main St",
+    //         city: "Test City",
+    //         state: "Test State",
+    //         country: "Test Country",
+    //         zip: "12345",
+    //       },
+    //     },
+    //   },
+    //   {
+    //     username: "testuser2",
+    //     password: "securePassword",
+    //     email: "test2@example.com",
     //     profile: {
     //       firstName: "Test",
     //       lastName: "User",

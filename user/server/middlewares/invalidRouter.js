@@ -1,4 +1,4 @@
-export const invalidRoute = (req, res, next) => {
+export const invalidRouter = (req, res, next) => {
   console.log(req.url);
   const error = new Error(
     `Combination of path "${req.originalUrl}" and method "${req.method}" not found.`

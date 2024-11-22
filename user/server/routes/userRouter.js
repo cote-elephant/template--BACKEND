@@ -1,29 +1,26 @@
 import express from "express";
 import {
-  getAllUsers,
-  getUserById,
+  getUsers,
   createUser,
-  updateUserById,
-  partlyUpdateUserById,
-  deleteAllUser,
-  deleteUserById,
+  updateUser,
+  deleteUser,
 } from "../controllers/userController.js";
 
 const userRouter = express.Router();
 
 userRouter
   .route("/")
-  .get(getAllUsers)
+  .get(getUsers)
   .post(createUser);
 
 userRouter
   .route("/:userID")
-  .patch(partlyUpdateUserById)
-  .delete(deleteUserById);
+  .patch(updateUser)
+  .delete(deleteUser);
 // .get(getUserById)
 // .put(updateUserById)
 
-// durch die auth middleware
+// durch die auth middleware und forceDeleteSingleUser/
 // -> if admin -> like a boss
 // -> if not admin -> only change own user data
 

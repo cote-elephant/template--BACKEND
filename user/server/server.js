@@ -1,6 +1,6 @@
 //* __________________ IMPORT __________________
 import express, { urlencoded } from "express";
-import cors from "cors"
+import cors from "cors";
 import mongoose from "mongoose";
 // import morgan from "morgan";
 
@@ -8,13 +8,29 @@ import mongoose from "mongoose";
 import userRouter from "./routes/userRouter.js";
 
 //_______ FUNCTIONS
-import {startServer} from "../functions/startServer.js"
+// import { connectToDB } from "./utils/connectToDB.js";
+// SERVER LISTENING AND RUNNING
+function startServer() {
+  app.listen(PORT, () => {
+    console.log(`Server running on PORT: ${PORT}`);
+  });
+}
+const connectToDB = async (url) =>{
+  try {
+   await mongoose.connect(url)
+   console.log("Connected to MongoDB ✅");
+ } catch (error) {
+   console.error("Failed to connect to MongoDB ⛔ ", error);
+   process.exit(1);
+ }
+}
+
+
 
 //_______ MIDDLEWARES
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { invalidRouter } from "./middlewares/invalidRouter.js";
-import { logger } from "./middlewares/logger.js";
-
+// import { logger } from "./middlewares/logger.js";
 
 const PORT = process.env.PORT || 5000;
 const MONGO_DB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017";
@@ -33,9 +49,12 @@ app.use("*", invalidRouter);
 
 app.use(errorHandler);
 
-connectToDB(MONGODB_URI)
-  .then(() => startServer())
+connectToDB(MONGO_DB_URI)
+  .then(() => 
+    {
+      console.log("Connection to MongoDB ✅")
+    })
   .catch((error) => {
-    console.error(error);
-    // process.exit(2)
+    console.error("Failed to start server ⛔",error);
+    process.exit(1)
   });

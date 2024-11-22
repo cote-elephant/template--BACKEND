@@ -1,5 +1,5 @@
 // import fs from "fs";
-import { User } from "../models/userSchema.js";
+import { User } from "../models/userModel.js";
 
 //* ================ READ ==================
 export const getUsers = async (req, res, next) => {
@@ -18,12 +18,11 @@ export const createUser = async (req, res, next) => {
     await User.create(user);
     res.status(201).json({ message: `${user} successfully created` });
   } catch (error) {
-
     //res.status(500).json({ message: `failed to create §{create}`});
 
     //? Hier  geht ${create} nicht, da evtl. bei User.create() fehlerhaft ?
-    const error = new Error("Creating a new user failed.");
-    error.status = 500;
+    const err = new Error("Creating a new user failed.");
+    err.status = 500;
 
     next(error);
   }
@@ -37,9 +36,14 @@ export const updateUser = async (req, res, next) => {
       { $set: req.body },
       { new: true, runValidators: true }
     );
+    if (!update) {
+      const error = new error("User not updated");
+      error.status(404);
+      next(error);
+    }
   } catch (error) {
-    const error = new Error("Updating the user failed");
-    error.status = 500;
+    const err = new Error("Updating the user failed");
+    err.status = 500;
     next(error);
   }
 };
@@ -57,6 +61,7 @@ export const deleteUser = async (req, res, next) => {
     await book.save();
     res.json({ message: `${user} soft deleted` });
   } catch (error) {
+    res.status(500).json({message: "User couldn't be soft deleted"})
     next(error);
   }
 };
