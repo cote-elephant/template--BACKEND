@@ -9,87 +9,90 @@ mongoose
   .then(() => {
     console.log(`Connection with mongoDB: SUCCESS ✅`);
 
-    const users = [
-      {
-        username: "john_doe",
-        password: "securePassword123",
-        email: "john.doe@example.com",
-        profile: {
-          firstName: "John",
-          lastName: "Doe",
-          avatar: "https://example.com/avatar1.jpg",
-          bio: "A passionate developer.",
-          address: {
-            street1: "123 Main St",
-            street2: "Apt 4B",
-            city: "New York",
-            state: "NY",
-            country: "USA",
-            zip: "10001",
-          },
-        },
-        deleted: false,
-      },
-      {
-        username: "jane_smith",
-        password: "passwordSecure987",
-        email: "jane.smith@example.com",
-        profile: {
-          firstName: "Jane",
-          lastName: "Smith",
-          avatar: "https://example.com/avatar2.jpg",
-          bio: "Lover of books and tech.",
-          address: {
-            street1: "456 Elm St",
-            street2: "Suite 10",
-            city: "Los Angeles",
-            state: "CA",
-            country: "USA",
-            zip: "90001",
-          },
-        },
-      },
-    ];
-    // const minimalUsers = [
+    // const users = [
     //   {
-    //     username: "testuser1",
-    //     password: "securePassword",
-    //     email: "test1@example.com",
+    //     username: "john_doe",
+    //     password: "securePassword123",
+    //     email: "john.doe@example.com",
     //     profile: {
-    //       firstName: "Test",
-    //       lastName: "User",
+    //       firstName: "John",
+    //       lastName: "Doe",
+    //       avatar: "https://example.com/avatar1.jpg",
+    //       bio: "A passionate developer.",
     //       address: {
     //         street1: "123 Main St",
-    //         city: "Test City",
-    //         state: "Test State",
-    //         country: "Test Country",
-    //         zip: "12345",
+    //         street2: "Apt 4B",
+    //         city: "New York",
+    //         state: "NY",
+    //         country: "USA",
+    //         zip: "10001",
     //       },
     //     },
+    //     deleted: false,
     //   },
     //   {
-    //     username: "testuser2",
-    //     password: "securePassword",
-    //     email: "test2@example.com",
+    //     username: "jane_smith",
+    //     password: "passwordSecure987",
+    //     email: "jane.smith@example.com",
     //     profile: {
-    //       firstName: "Test",
-    //       lastName: "User",
+    //       firstName: "Jane",
+    //       lastName: "Smith",
+    //       avatar: "https://example.com/avatar2.jpg",
+    //       bio: "Lover of books and tech.",
     //       address: {
-    //         street1: "123 Main St",
-    //         city: "Test City",
-    //         state: "Test State",
-    //         country: "Test Country",
-    //         zip: "12345",
+    //         street1: "456 Elm St",
+    //         street2: "Suite 10",
+    //         city: "Los Angeles",
+    //         state: "CA",
+    //         country: "USA",
+    //         zip: "90001",
     //       },
     //     },
     //   },
     // ];
-
-    // console.log(users);
-    //other alternative to index on userModel.js
-    // Ensure indexes are created
-    // User.ensureIndexes();
-    // console.log("Indexes ensured!");
+    const users = [
+      {
+        "username": "johnDoe",
+        "password": "securePass123!",
+        "email": "john.doe@example.com",
+        "profile": {
+          "firstName": "John",
+          "lastName": "Doe",
+          "avatar": "https://example.com/avatar/john_doe.png",
+          "bio": "A software developer with a passion for open source.",
+          "address": {
+            "street1": "123 Elm Street",
+            "street2": "Apt 4B",
+            "city": "Springfield",
+            "state": "IL",
+            "country": "USA",
+            "zip": "62704"
+          }
+        },
+        "deleted": false
+      },
+      {
+        "username": "janeSmith",
+        "password": "anotherPass456!",
+        "email": "jane.smith@example.com",
+        "profile": {
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "avatar": "https://example.com/avatar/jane_smith.png",
+          "bio": "Designer, traveler, and coffee enthusiast.",
+          "address": {
+            "street1": "456 Oak Avenue",
+            "street2": "",
+            "city": "Los Angeles",
+            "state": "CA",
+            "country": "USA",
+            "zip": "90001"
+          }
+        },
+        "deleted": false
+      }
+    ]
+    
 
     User.insertMany(users)
       .then(() => {

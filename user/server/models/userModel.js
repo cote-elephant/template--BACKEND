@@ -1,13 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, ObjectId } from "mongoose";
 
 // Address Schema
 const addressSchema = new Schema({
-  street1: { type: String, required: true },
-  street2: { type: String },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
-  country: { type: String, required: true },
-  zip: { type: String, required: true },
+  street1: { type: String, required: false },
+  street2: { type: String, required: false },
+  city: { type: String, required: false },
+  state: { type: String, required: false },
+  country: { type: String, required: false },
+  zip: { type: String, required: false },
   // location: {
   //   type: { type: String, enum: ["Point"], required: true }, // GeoJSON type
   //   coordinates: { type: [Number], required: true }, // Array for coordinates [longitude, latitude]
@@ -18,6 +18,7 @@ const addressSchema = new Schema({
 const profileSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
+  age: { type: Number, required: false },
   avatar: { type: String },
   bio: { type: String },
   address: { type: addressSchema, required: true },
@@ -26,17 +27,17 @@ const profileSchema = new Schema({
 // User Schema
 const userSchema = new Schema(
   {
+    _id: { type: ObjectId, required: true },
     username: {
       type: String,
       unique: true,
-      required: [true, "can't be blank"],
-      // match: [/^[a-zA-Z0-9]+$/, "is invalid"],
       index: true,
     },
-    password: { type: String, required: true },
+    password: { type: String, required: true, notEmpty: true },
     email: {
       type: String,
       required: true,
+      isEmail: true,
       // match: [/^\S+@\S+\.\S+$/, "Please use a valid email address"],
       unique: true,
     },
@@ -53,4 +54,4 @@ const userSchema = new Schema(
 // userSchema.index({ "location": "2dsphere" });
 // console.log(userSchema.index())
 
-export const User = model("User", userSchema);
+export const User = model("User", userSchema, "users");

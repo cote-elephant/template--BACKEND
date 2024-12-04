@@ -2,59 +2,45 @@
 import express, { urlencoded } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 // import morgan from "morgan";
 
 //_______ ROUTES
 import userRouter from "./routes/userRouter.js";
-
-//_______ FUNCTIONS
-// import { connectToDB } from "./utils/connectToDB.js";
-// SERVER LISTENING AND RUNNING
-function startServer() {
-  app.listen(PORT, () => {
-    console.log(`Server running on PORT: ${PORT}`);
-  });
-}
-const connectToDB = async (url) =>{
-  try {
-   await mongoose.connect(url)
-   console.log("Connected to MongoDB ✅");
- } catch (error) {
-   console.error("Failed to connect to MongoDB ⛔ ", error);
-   process.exit(1);
- }
-}
-
-
+import { invalidRouter } from "./routes/invalidRouter.js";
 
 //_______ MIDDLEWARES
 import { errorHandler } from "./middlewares/errorHandler.js";
-import { invalidRouter } from "./middlewares/invalidRouter.js";
 // import { logger } from "./middlewares/logger.js";
 
 const PORT = process.env.PORT || 5000;
-const MONGO_DB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const DATABASE = process.env.DATABASE_NAME || "userDB";
+const MONGO_DB_URI =
+process.env.MONGODB_URI || `mongodb://localhost:27017/USER_BACKEND`;
+dotenv.config(); //invoke .env
 const app = express(); // invoke express
-
-// app.use(morgan("dev"));
-//app.use(morgan(':method :url :status :response-time ms - :res[content-length]'));
 
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/user", userRouter);
+app.use("/users", userRouter);
 
 app.use("*", invalidRouter);
 
 app.use(errorHandler);
 
-connectToDB(MONGO_DB_URI)
-  .then(() => 
-    {
-      console.log("Connection to MongoDB ✅")
-    })
+mongoose
+  .connect(MONGO_DB_URI)
+  .then(() => {
+    console.log(`Connection with mongoDB: SUCCESS ✅`);
+    app.listen(PORT, () => {
+      console.log(`Listening at http://localhost:${PORT}`);
+    });
+  })
   .catch((error) => {
-    console.error("Failed to start server ⛔",error);
-    process.exit(1)
+    console.log(`Connection with mongoDB: FAILED ⛔`, error);
   });
+mongoose.connection.on(`error`, (error) => {
+  console.error("Error connecting to the database:", error);
+});

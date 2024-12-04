@@ -1,22 +1,28 @@
-import express from "express";
-import {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-} from "../controllers/userController.js";
+import { Router } from "express";
 
-const userRouter = express.Router();
+//_______ CONTROLLER_______
+import { getUsers, getUserById } from "../controllers/User/getUser.js";
+import { createUser } from "../controllers/User/createUser.js";
+import { updateUserById } from "../controllers/User/updateUser.js";
+import { deleteUser } from "../controllers/User/deleteUser.js";
+
+//_______ VALIDATOR_______
+import { userValidator } from "../middlewares/userValidator.js";
+import { validateRequest } from "../middlewares/validateRequest.js";
+
+const userRouter = Router();
 
 userRouter
   .route("/")
   .get(getUsers)
-  .post(createUser);
+  .post(userValidator, validateRequest, createUser);
 
 userRouter
   .route("/:userID")
-  .patch(updateUser)
+  .get(getUserById)
+  .patch(updateUserById)
   .delete(deleteUser);
+
 // .get(getUserById)
 // .put(updateUserById)
 
