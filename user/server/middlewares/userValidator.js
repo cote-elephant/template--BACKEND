@@ -58,6 +58,7 @@ export const userValidator = [
 
   body("profile.address.zip")
     .trim()
+    .isPostalCode("DE") // DE is the country code for Germany
     .isLength({ min: 2 })
     .withMessage("Zip must be at least 2 characters long"),
 ];

@@ -1,6 +1,4 @@
-# User-Backend :computer:
-
-#### Letzte Woche habt ihr angefangen ein User-Backend aufzubauen und stetig auszubauen. In diesem sollen nun auch die neusten Konzepte integriert werden. Ihr solltet also am Ende des morgigen Tages ein Backend haben, welches (mindestens) folgende Dinge beinhaltet:
+## Letzte Woche habt ihr angefangen ein User-Backend aufzubauen und stetig auszubauen. In diesem sollen nun auch die neusten Konzepte integriert werden. Ihr solltet also am Ende des morgigen Tages ein Backend haben, welches (mindestens) folgende Dinge beinhaltet:
 
 1. Endpunkte (kannst du bei belieben auch anders benennen):
    GET /user --> wirft alle User aus
