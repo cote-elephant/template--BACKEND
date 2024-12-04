@@ -3,6 +3,12 @@ import {body} from "express-validator";
 export const userValidator = [
   body("username")
     .trim()
+    .custom(reg => {
+      const reg = /blabla/
+      if(reg !== ??){
+        throw new Error("the username is invalid")
+      } else return true;
+    })
     .isLength({ min: 6, max: 20 })
     .withMessage("Username must be at least 3 characters long"),
 

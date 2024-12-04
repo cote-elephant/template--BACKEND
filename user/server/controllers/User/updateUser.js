@@ -42,11 +42,19 @@ export const updateUserById = async (req, res, next) => {
           }
         }
       }
+
       User[userID] = { ...User[userID], ...updateUser };
-      res.json({
-        message: updateMessage,
-        data: User[userID],
-      });
+
+
+      // evtl auffangen, wenn der User gleiche Daten eingab?
+      // evtl sicherstellen, dass hier nie ein leere String übergegeben wird z.b. case nicht verfügbar?
+      if (updateMessage !== "") {
+        res.json({
+          message: updateMessage,
+          data: User[userID],
+        });
+      } 
+
       //besser Output wie "User 'ID' has been changed: 'ChangeThing'"
     } else {
       res.status(404).json({ message: "User not found." });
